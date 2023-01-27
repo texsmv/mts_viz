@@ -1,0 +1,5 @@
+server/datasets/
+*/__pycache__/
+*.npy
+*.pyc
+*.dart_tool
