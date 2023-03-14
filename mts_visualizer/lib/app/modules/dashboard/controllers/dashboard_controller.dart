@@ -34,15 +34,16 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadDataset(String name) async {
-    await Get.showOverlay(
-      asyncFunction: () async {
-        await _datasetsController.loadDataset(name);
-        update();
-      },
-      loadingWidget: const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    await _datasetsController.loadDataset(name);
+    // await Get.showOverlay(
+    //   asyncFunction: () async {
+    //     await _datasetsController.loadDataset(name);
+    //     update();
+    //   },
+    //   loadingWidget: const Center(
+    //     child: CircularProgressIndicator(),
+    //   ),
+    // );
   }
 
   Future<void> reloadDatasetsFile() async {

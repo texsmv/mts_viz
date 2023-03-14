@@ -19,28 +19,30 @@ class ChartPlacer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BoardController boardController = Get.find(tag: boardId);
-    return GetBuilder<BoardController>(
-      tag: boardId,
-      builder: (_) => Padding(
-        padding: const EdgeInsets.all(10),
-        child: PCard(
-          child: GestureDetector(
-            onTap: () {
-              boardController.sCol = col;
-              boardController.sRow = row;
-              boardController.update();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color:
-                      boardController.sCol == col && boardController.sRow == row
-                          ? Colors.blue
-                          : Colors.transparent,
-                  width: 2,
+    return RepaintBoundary(
+      child: GetBuilder<BoardController>(
+        tag: boardId,
+        builder: (_) => Padding(
+          padding: const EdgeInsets.all(10),
+          child: PCard(
+            child: GestureDetector(
+              onTap: () {
+                boardController.sCol = col;
+                boardController.sRow = row;
+                boardController.update();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: boardController.sCol == col &&
+                            boardController.sRow == row
+                        ? Colors.blue
+                        : Colors.transparent,
+                    width: 2,
+                  ),
                 ),
+                child: child,
               ),
-              child: child,
             ),
           ),
         ),

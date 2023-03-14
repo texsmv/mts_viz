@@ -71,6 +71,7 @@ class AppRep {
       labelsNames = {};
       Map<String, dynamic> tempMap =
           Map<String, dynamic>.from(data['labelsNames']);
+
       tempMap.forEach((key, value) {
         Map<String, String> temp = Map<String, String>.from(value);
         Map<int, String> labelsMap = {};
