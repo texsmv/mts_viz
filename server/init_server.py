@@ -1,3 +1,8 @@
 from app_server import initServer
+import sys
+import os
 
-initServer()
+if __name__ == "__main__":
+    path = os.path.abspath(sys.argv[1])
+    print(path)
+    initServer(path)

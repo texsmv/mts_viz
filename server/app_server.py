@@ -86,7 +86,7 @@ def object():
 
 
 
-def initServer(host = "127.0.0.1", port=5000):
+def initServer(path, host = "127.0.0.1", port=5000):
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/basa_metrics'
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/har_metrics'
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/open_metrics'
@@ -97,7 +97,9 @@ def initServer(host = "127.0.0.1", port=5000):
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/har_metrics_exp'
     # path = 'mts_datasets'
     
-    path = '/home/texs/Documents/AirQuality/air_quality/madrid'
+    # path = '/home/texs/Documents/AirQuality/air_quality/madrid'
+    # path = '/home/texs/Documentos/VivaBem/Repositories/mts_feature_learning/visualizations/OpenDataset'
+    path = '/home/texs/Documentos/VivaBem/Repositories/mts_feature_learning/visualizations/VvB'
     
     global storage
     storage = MTSStorage(path)
