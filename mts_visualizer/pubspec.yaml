@@ -11,11 +11,12 @@ dependencies:
   get: ^4.6.6
   flutter:
     sdk: flutter
-  scidart: ^0.0.2-dev.9
+  scidart: ^0.0.2-dev.12
   tabbed_view: ^1.13.0+1
   nice_buttons: ^0.0.2
   random_color: ^1.0.6-nullsafety
   rainbow_color: ^2.0.1
+  file_picker: ^4.2.7
 
 dev_dependencies:
   flutter_lints: ^5.0.0

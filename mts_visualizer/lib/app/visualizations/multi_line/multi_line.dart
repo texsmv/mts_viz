@@ -4,7 +4,7 @@ import 'package:mts_visualizer/app/extensions/colors.dart';
 import 'package:mts_visualizer/app/modules/dataset_board/controllers/board_controller.dart';
 import 'package:mts_visualizer/app/ui_utils.dart';
 import 'package:mts_visualizer/app/visualizations/axis.dart';
-import 'package:mts_visualizer/app/visualizations/multi_line.dart/multi_line_painter.dart';
+import 'package:mts_visualizer/app/visualizations/multi_line/multi_line_painter.dart';
 import 'package:mts_visualizer/app/widgets/buttons/pButton.dart';
 import 'package:mts_visualizer/app/widgets/containers/pdialog.dart';
 import 'package:scidart/numdart.dart';

@@ -12,7 +12,7 @@ import 'package:mts_visualizer/app/modules/dashboard/controllers/dashboard_contr
 import 'package:mts_visualizer/app/ui_utils.dart';
 import 'package:mts_visualizer/app/visualizations/iprojection/ipoint.dart';
 import 'package:mts_visualizer/app/visualizations/iprojection/iprojection_controller.dart';
-import 'package:mts_visualizer/app/visualizations/multi_line.dart/multi_line.dart';
+import 'package:mts_visualizer/app/visualizations/multi_line/multi_line.dart';
 import 'package:mts_visualizer/app/widgets/containers/pcard.dart';
 
 class BoardController extends GetxController {
@@ -200,7 +200,6 @@ class BoardController extends GetxController {
       boardId: id,
       series: dataset!.getDimension(dimPos),
       isSelected: isSelected,
-      // colors: pointColors,
       title: dataset!.dimensions[dimPos],
     );
     grid[sRow][sCol] = ChartPlacer(
