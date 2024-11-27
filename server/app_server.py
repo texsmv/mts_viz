@@ -1,7 +1,7 @@
 import re
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from source.storage import MTSStorage
+from mts_vis.storage import MTSStorage
 import numpy as np
 
 from flask import jsonify
@@ -99,7 +99,7 @@ def initServer(path, host = "127.0.0.1", port=5000):
     
     # path = '/home/texs/Documents/AirQuality/air_quality/madrid'
     # path = '/home/texs/Documentos/VivaBem/Repositories/mts_feature_learning/visualizations/OpenDataset'
-    path = '/home/texs/Documentos/VivaBem/Repositories/mts_feature_learning/visualizations/VvB'
+    path = '/home/texs/Documents/Projects/AirQuality/airq_feature_learning/ontario'
     
     global storage
     storage = MTSStorage(path)

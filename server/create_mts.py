@@ -1,6 +1,6 @@
 import numpy as np
-from source.storage import MTSStorage
-from source.datasets import loadFuncionalModel, loadNatops, loadWafer
+from mts_vis.storage import MTSStorage
+from mts_vis.datasets import loadFuncionalModel, loadNatops, loadWafer
 from sklearn.decomposition import PCA
 
 storage = MTSStorage('mts_datasets')

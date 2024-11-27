@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:menu_button/menu_button.dart';
 import 'package:mts_visualizer/app/modules/dataset_board/controllers/board_controller.dart';
 import 'package:mts_visualizer/app/visualizations/iprojection/iprojection.dart';
 import 'package:mts_visualizer/app/widgets/containers/pcard.dart';
@@ -49,40 +48,43 @@ class Board extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text('Projection'),
-                                        MenuButton<String>(
-                                          items: controller
-                                              .dataset!.coordsOptions!,
-                                          itemBuilder: (String value) =>
-                                              Container(
-                                            height: 30,
-                                            alignment: Alignment.centerLeft,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0.0, horizontal: 16),
-                                            child: Text(value),
-                                          ),
-                                          toggledChild: Container(
-                                            child: SizedBox(),
-                                          ),
-                                          onItemSelected: (String value) {
-                                            // boardController.dataset!.slabel =
-                                            //     value;
-                                            // boardController
-                                            //     .updateLabelOption();
-                                            controller
-                                                .updateCoordsOption(value);
+                                        DropdownButton<String>(
+                                          value: controller.dataset!
+                                              .scoord, // Currently selected value
+                                          onChanged: (String? newValue) {
+                                            if (newValue != null) {
+                                              controller
+                                                  .updateCoordsOption(newValue);
+                                            }
                                           },
-                                          onMenuButtonToggle:
-                                              (bool isToggle) {},
-                                          child: Container(
-                                            width: 150,
-                                            height: 30,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16),
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                                controller.dataset!.scoord!),
-                                          ),
-                                        )
+                                          items: controller
+                                              .dataset!.coordsOptions!
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Container(
+                                                height: 30,
+                                                alignment: Alignment.centerLeft,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                child: Text(value),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          dropdownColor: Colors
+                                              .white, // Optional: Adjust dropdown background color
+                                          icon: Icon(Icons
+                                              .arrow_drop_down), // Optional: Customize dropdown icon
+                                          style: TextStyle(
+                                              fontSize:
+                                                  14), // Optional: Adjust text style
+                                          isExpanded:
+                                              true, // Optional: Expand to fill parent container width
+                                          underline:
+                                              Container(), // Optional: Hide underline
+                                        ),
                                       ],
                                     )
                                   : const SizedBox(),

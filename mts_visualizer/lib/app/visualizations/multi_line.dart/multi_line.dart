@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mts_visualizer/app/extensions/colors.dart';
 import 'package:mts_visualizer/app/modules/dataset_board/controllers/board_controller.dart';
+import 'package:mts_visualizer/app/ui_utils.dart';
 import 'package:mts_visualizer/app/visualizations/axis.dart';
 import 'package:mts_visualizer/app/visualizations/multi_line.dart/multi_line_painter.dart';
 import 'package:mts_visualizer/app/widgets/buttons/pButton.dart';
@@ -106,13 +107,13 @@ class _MultiLineState extends State<MultiLine> {
                               Text("Min"),
                               TextField(
                                 onChanged: (value) {
-                                  minV = double.parse(value, (e) => 0);
+                                  minV = double.parse(value);
                                 },
                               ),
                               Text("Max"),
                               TextField(
                                 onChanged: (value) {
-                                  maxV = double.parse(value, (e) => 0);
+                                  maxV = double.parse(value);
                                 },
                               ),
                               PButton(
@@ -164,5 +165,92 @@ class _MultiLineState extends State<MultiLine> {
         ),
       ),
     );
+  }
+}
+
+class MeanStdChartPainter extends CustomPainter {
+  final double minValue;
+  final double maxValue;
+  final List<bool> isSelected;
+  final List<Color> colors;
+  final Array2d series;
+
+  MeanStdChartPainter({
+    required this.series,
+    required this.minValue,
+    required this.maxValue,
+    required this.isSelected,
+    required this.colors,
+  });
+
+  late double _width;
+  late double _height;
+  late Canvas _canvas;
+  late double _horizontalSpace;
+  Color normalColor = Color.fromRGBO(140, 140, 140, 1);
+
+  int get timeLen => series[0].length;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _canvas = canvas;
+    _width = size.width;
+    _height = size.height;
+    _horizontalSpace = _width / (timeLen - 1);
+
+    List<double> means = [];
+    List<double> stds = [];
+
+    for (int i = 0; i < timeLen; i++) {
+      List<double> valuesAtTime = [];
+      for (int j = 0; j < series.length; j++) {
+        valuesAtTime.add(series[j][i]);
+      }
+      double mean = valuesAtTime.reduce((a, b) => a + b) / valuesAtTime.length;
+      double std = sqrt(
+          valuesAtTime.map((v) => pow(v - mean, 2)).reduce((a, b) => a + b) /
+              valuesAtTime.length);
+      means.add(mean);
+      stds.add(std);
+    }
+
+    Path meanPath = Path();
+    Path stdPathUpper = Path();
+    Path stdPathLower = Path();
+
+    meanPath.moveTo(0, value2Height(means[0]));
+    stdPathUpper.moveTo(0, value2Height(means[0] + stds[0]));
+    stdPathLower.moveTo(0, value2Height(means[0] - stds[0]));
+
+    for (int i = 1; i < timeLen; i++) {
+      meanPath.lineTo(i * _horizontalSpace, value2Height(means[i]));
+      stdPathUpper.lineTo(
+          i * _horizontalSpace, value2Height(means[i] + stds[i]));
+      stdPathLower.lineTo(
+          i * _horizontalSpace, value2Height(means[i] - stds[i]));
+    }
+
+    Paint meanPaint = Paint()
+      ..color = Colors.blue
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    Paint stdPaint = Paint()
+      ..color = Colors.blue.withOpacity(0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    _canvas.drawPath(meanPath, meanPaint);
+    _canvas.drawPath(stdPathUpper, stdPaint);
+    _canvas.drawPath(stdPathLower, stdPaint);
+  }
+
+  double value2Height(double value) {
+    return _height - uiRangeConverter(value, minValue, maxValue, 0, _height);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }

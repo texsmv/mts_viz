@@ -8,7 +8,7 @@ environment:
 dependencies:
   http: any
   cupertino_icons: ^1.0.2
-  get: 4.6.5
+  get: ^4.6.6
   flutter:
     sdk: flutter
   scidart: ^0.0.2-dev.9
@@ -16,10 +16,9 @@ dependencies:
   nice_buttons: ^0.0.2
   random_color: ^1.0.6-nullsafety
   rainbow_color: ^2.0.1
-  menu_button: ^1.4.2+1
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 

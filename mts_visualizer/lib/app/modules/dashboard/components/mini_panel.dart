@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:menu_button/menu_button.dart';
 import 'package:mts_visualizer/app/controllers/datasets_controller.dart';
 import 'package:mts_visualizer/app/extensions/colors.dart';
 import 'package:mts_visualizer/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -128,36 +127,37 @@ class MiniPanel extends GetView<DashboardController> {
             ? Column(
                 children: [
                   const Text('Labels'),
-                  MenuButton<String>(
-                    items: boardController.dataset!.labelsOptions!,
-                    itemBuilder: (String value) => Container(
-                      height: 30,
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0.0, horizontal: 16),
-                      child: Text(value),
-                    ),
-                    toggledChild: Container(
-                      child: SizedBox(),
-                    ),
-                    onItemSelected: (String value) {
-                      // setState(() {
-                      //   selectedKey = value;
-                      // });
-                      boardController.dataset!.slabel = value;
-                      boardController.updateLabelOption();
+                  DropdownButton<String>(
+                    value: boardController
+                        .dataset!.slabel, // Currently selected value
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        boardController.dataset!.slabel = newValue;
+                        boardController.updateLabelOption();
+                      }
                     },
-                    onMenuButtonToggle: (bool isToggle) {
-                      print(isToggle);
-                    },
-                    child: Container(
-                      width: 150,
-                      height: 30,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      alignment: Alignment.centerLeft,
-                      child: Text(boardController.dataset!.slabel!),
-                    ),
-                  )
+                    items: boardController.dataset!.labelsOptions!
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Container(
+                          height: 30,
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(value),
+                        ),
+                      );
+                    }).toList(),
+                    dropdownColor: Colors
+                        .white, // Optional: Adjust the dropdown background color
+                    icon: Icon(Icons
+                        .arrow_drop_down), // Optional: Customize the dropdown icon
+                    style:
+                        TextStyle(fontSize: 14), // Optional: Adjust text style
+                    isExpanded:
+                        true, // Optional: Expand to fill parent container width
+                    underline: Container(), // Optional: Hide underline
+                  ),
                 ],
               )
             : const SizedBox()
