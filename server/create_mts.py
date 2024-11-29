@@ -18,9 +18,11 @@ labelsMap = {
     -1: 'class 1',
     1: 'class 2',
 }
-print(y_train)
-storage.add_mts('wafer_train', np.transpose(X_train, (0, 2, 1)), labels = {'class': y_train},)
-# storage.add_mts('wafer_train', X_train, labels = {'class': y_train}, coords={'train': train_coords}, labelsNames={'class':labelsMap} )
+print(X_train.shape)
+# print(y_train)
+# storage.add_mts('wafer_train', np.transpose(X_train, (0, 2, 1)), labels = {'class': y_train},)
+storage.add_mts('wafer_train', np.transpose(X_train, (0, 2, 1)), 
+labels = {'class': y_train}, dimensions=['Dim1'], projections={'train': train_coords}, labelsNames={'class':labelsMap} )
 # storage.add_mts('wafer_train', X_train, labels = {'class': y_train}, coords={'train': train_coords}, labelsNames={'class':labelsMap} )
 # storage.add_mts('wafer_test', X_test, labels = {'class':y_test}, coords={'test': test_coords}, labelsNames={'class':labelsMap})
 

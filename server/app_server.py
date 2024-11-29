@@ -84,9 +84,20 @@ def object():
         
     return jsonify(resp_map)
 
+@app.route("/loadFromPath", methods=['POST'])
+def loadFromPath():
+    path = request.get_json()["path"]
 
+    global storage
+    storage = MTSStorage(path)
+    storage.load()
 
-def initServer(path, host = "127.0.0.1", port=5000):
+    global objects
+    objects = storage.objects
+
+    return jsonify({'status': 'Done'})
+
+def initServer(host = "127.0.0.1", port=5000):
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/basa_metrics'
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/har_metrics'
     # path = '/home/texs/Documents/VivaBem/repositories/sedentary_datasets_visualizations/open_metrics'
@@ -99,14 +110,14 @@ def initServer(path, host = "127.0.0.1", port=5000):
     
     # path = '/home/texs/Documents/AirQuality/air_quality/madrid'
     # path = '/home/texs/Documentos/VivaBem/Repositories/mts_feature_learning/visualizations/OpenDataset'
-    path = '/home/texs/Documents/Projects/AirQuality/airq_feature_learning/ontario'
+    # path = '/home/texs/Documents/Projects/AirQuality/airq_feature_learning/ontario'
     
-    global storage
-    storage = MTSStorage(path)
-    storage.load()
+    # global storage
+    # storage = MTSStorage(path)
+    # storage.load()
     
-    global objects
-    objects = storage.objects
+    # global objects
+    # objects = storage.objects
     
     CORS(app)
     app.run(host=host, port=port, debug=False)
