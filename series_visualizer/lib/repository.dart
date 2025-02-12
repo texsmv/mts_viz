@@ -48,7 +48,8 @@ class ApiService {
     }
   }
 
-  Future<Map<String, List<double>>> getTimeMeanStd(String name, int dim, List<int> positions) async {
+  Future<Map<String, List<double>>> getTimeMeanStd(
+      String name, int dim, List<int> positions) async {
     final response = await http.post(
       Uri.parse('$baseUrl/getTimeMeanStd'),
       headers: {'Content-Type': 'application/json'},
