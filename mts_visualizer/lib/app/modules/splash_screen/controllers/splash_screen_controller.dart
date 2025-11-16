@@ -14,10 +14,10 @@ class SplashScreenController extends GetxController {
     super.onInit();
   }
 
-  Future<void> teste() async {
-    DatasetModel dataset = await AppRep.loadDataset('basa_train');
-    // print(dataset.array[0]);
-  }
+  // Future<void> teste() async {
+  //   // DatasetModel dataset = await AppRep.loadDataset('basa_train');
+  //   // print(dataset.array[0]);
+  // }
 
   Future<void> loadSettings() async {
     await _datasetsController.init();
@@ -31,16 +31,16 @@ class SplashScreenController extends GetxController {
   }
 
   Future<String?> pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null && result.files.single.path != null) {
-      String? path = result.files.single.path; 
-      if (path != null){
-        await AppRep.loadFromPath(path);
-      }
-      return path;
-    }
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    // if (result != null && result.files.single.path != null) {
+    //   String? path = result.files.single.path;
+    //   if (path != null) {
+    //     await AppRep.loadFromPath(path);
+    //   }
+    //   return path;
+    // }
 
-    return null;
+    // return null;
   }
 
   final DatasetsController _datasetsController = Get.find();

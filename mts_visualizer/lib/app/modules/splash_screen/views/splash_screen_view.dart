@@ -23,13 +23,13 @@ class SplashScreenView extends GetView<SplashScreenController> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                String? filePath = await controller.pickFile();
-                if (filePath != null) {
-                  print('Picked file: $filePath');
-                  controller.loadSettings();
-                } else {
-                  print('No file selected');
-                }
+                controller.loadSettings();
+                // String? filePath = await controller.pickFile();
+                // if (filePath != null) {
+                //   print('Picked file: $filePath');
+                // } else {
+                //   print('No file selected');
+                // }
               },
               child: Text('Pick a File'),
             ),

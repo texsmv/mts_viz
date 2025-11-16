@@ -8,17 +8,17 @@ class AppRep {
   // static String hostUrl = 'http://192.168.122.1:8000/';
   static String hostUrl = 'http://127.0.0.1:5000';
 
-  static Future<void> loadFromPath(String path) async {
-    final response = await post(
-      Uri.parse('$hostUrl/loadFromPath'),
-      body: jsonEncode({'path': path}),
-      headers: {"Content-Type": "application/json"},
-    );
-    dynamic data = jsonDecode(response.body);
-    if (data['status'] != 'Done') {
-      throw Exception('Failed to load from path');
-    }
-  }
+  // static Future<void> loadFromPath(String path) async {
+  //   final response = await post(
+  //     Uri.parse('$hostUrl/loadFromPath'),
+  //     body: jsonEncode({'path': path}),
+  //     headers: {"Content-Type": "application/json"},
+  //   );
+  //   dynamic data = jsonDecode(response.body);
+  //   if (data['status'] != 'Done') {
+  //     throw Exception('Failed to load from path');
+  //   }
+  // }
 
   static Future<List<String>> datasetsNames() async {
     final response = await post(Uri.parse('$hostUrl/objectsInfo'));
@@ -35,7 +35,7 @@ class AppRep {
   static Future<DatasetModel> loadDataset(String name) async {
     final response = await post(
       Uri.parse('$hostUrl/object'),
-      body: jsonEncode({'name': name}),
+      body: jsonEncode({'name': name, 'max_windows': 1000}),
       headers: {"Content-Type": "application/json"},
     );
     dynamic data = jsonDecode(response.body);
@@ -80,6 +80,7 @@ class AppRep {
       print("----------------------------------");
       print("--------------- labels found---------------");
       print("----------------------------------");
+      print(data['labelsNames']);
       labelsNames = {};
       Map<String, dynamic> tempMap =
           Map<String, dynamic>.from(data['labelsNames']);
